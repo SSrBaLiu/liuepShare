@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!--  让rules文件夹作为默认的规则存放地点  -->
+    <kbase name="KBase" packages="rules" default="true">
+        <!--    配置一个名为statelessSession的无状态会话    -->
+        <ksession name="statelessSession" type="stateless" default="true"/>
+    </kbase>
+</kmodule>
