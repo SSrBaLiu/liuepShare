@@ -1,0 +1,48 @@
+package rules.package1
+
+import org.liuep.droolsGlobal.services.ServiceForSubsection;
+import org.liuep.droolsGlobal.entities.EntityForSubsection;
+
+global ServiceForSubsection serviceForSubsection
+
+// 传入的fact数据是一个[0,5000)的一个随机数，取值大于4000能在概率学上获得2成的数据，对应1W取1K的场景要求
+
+// LHS 获得fact数据，并判断是否是第0~1000条符合条件的fact
+rule "subsection_rule_(0,1k]"
+    when
+        $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
+        and
+        eval(serviceForSubsection.getCount() > 0)
+        and
+        eval(serviceForSubsection.getCount() <= 1000)
+    then
+        serviceForSubsection.execute();
+        serviceForSubsection.addBeforeElement($entityForSubsection.getNum());
+        serviceForSubsection.addAfterElement(0.5 * $entityForSubsection.getNum());
+end
+
+// LHS 获得fact数据，并判断是否是第1000~2000条符合条件的fact
+rule "subsection_rule_(1k,2k]"
+    when
+        $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
+        and
+        eval(serviceForSubsection.getCount() > 1000)
+        and
+        eval(serviceForSubsection.getCount() <= 2000)
+    then
+        serviceForSubsection.execute();
+        serviceForSubsection.addBeforeElement($entityForSubsection.getNum());
+        serviceForSubsection.addAfterElement(0.6 * $entityForSubsection.getNum());
+end
+
+// LHS 获得fact数据，并判断是否是第2000+条符合条件的fact
+rule "subsection_rule_(2k,+**)"
+    when
+        $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
+        and
+        eval(serviceForSubsection.getCount() > 2000)
+    then
+        serviceForSubsection.execute();
+        serviceForSubsection.addBeforeElement($entityForSubsection.getNum());
+        serviceForSubsection.addAfterElement(0.7 * $entityForSubsection.getNum());
+end
