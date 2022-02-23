@@ -25,7 +25,7 @@ public class LiuepTest {
         //获得中间数据存储的服务
         ServiceForSubsection serviceForSubsection = new ServiceForSubsection(1);
 
-        //设置规则RuleForSubsection里声明的全局变量
+        //设置在规则RuleForSubsection里声明的全局变量
         statelessKieSession.setGlobal("serviceForSubsection",serviceForSubsection);
 
         //获得随机数生成器
