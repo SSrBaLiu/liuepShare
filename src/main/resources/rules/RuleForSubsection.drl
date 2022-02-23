@@ -9,6 +9,7 @@ global ServiceForSubsection serviceForSubsection
 
 // LHS 获得fact数据，并判断是否是第0~1000条符合条件的fact
 rule "subsection_rule_(0,1k]"
+    no-loop
     when
         $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
         and
@@ -23,6 +24,7 @@ end
 
 // LHS 获得fact数据，并判断是否是第1000~2000条符合条件的fact
 rule "subsection_rule_(1k,2k]"
+    no-loop
     when
         $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
         and
@@ -37,6 +39,7 @@ end
 
 // LHS 获得fact数据，并判断是否是第2000+条符合条件的fact
 rule "subsection_rule_(2k,+**)"
+    no-loop
     when
         $entityForSubsection:EntityForSubsection($entityForSubsection.getNum() > 4000)
         and
